@@ -3,7 +3,12 @@
 # Fleetmanager API 
 
 This is my proposed solution for the challenge to manage the creation and retrieval of instances which represent the information about cars of the Clevershuttle fleet.
-Welcome to this code and have fun managing cars!
+Welcome to this code and have fun managing fleets!
+
+## Assumptions, compromises and good-to-knows
+
+The maven plugin openapi generator has been used to generate a server stub for the API. 
+The server code implements the mentioned server stub.
 
 ## Getting started
 
