@@ -8,10 +8,24 @@ Welcome to this code and have fun managing cars!
 ## Getting started
 
 To build the project, it is necessary to run the following commands in the project root:
-For the sake of 
 
 ```
 gradle build
+```
+
+To create a docker image called fleetmanagerimage, using the description from Dockerfile:
+```
+docker build -f ./app/Dockerfile -t fleetmanagerimage .
+```
+
+To run create fleetmanagercontainer using fleetmanagerimage:
+```
+docker run --name fleetmanagercontainer -p 8080:8080 fleetmanagerimage:latest
+```
+
+To stop the container fleetmanagercontainer:
+```
+docker stop fleetmanagercontainer
 ```
 
 ## Most important technologies and tools used
@@ -20,6 +34,8 @@ gradle build
 - Spring data JPA as specification of the database management
 - H2 as a database engine
 - OpenApi 3.0.3 to specify the implemented REST API.
+- Docker for containerizing the application
+- Gradle for building the project
 
 ## About the API specification
 
@@ -31,12 +47,12 @@ The Fleetmanager API is defined in the following OpenAPI file:
 
 ```
 {
-“id”: 12345,
-“brand”: “Flexa”,
-“licensePlate”: “L-CS8877E”,
-“status”: “available”,
-“createdAt”: “2017-09-01T10:23:47.000Z",
-“lastUpdatedAt”: “2022-04-15T13:23:11.000Z"
+    “id”: 12345,
+    “brand”: “Flexa”,
+    “licensePlate”: “L-CS8877E”,
+    “status”: “available”,
+    “createdAt”: “2017-09-01T10:23:47.000Z",
+    “lastUpdatedAt”: “2022-04-15T13:23:11.000Z"
 }
 ```
 
