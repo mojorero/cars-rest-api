@@ -1,0 +1,121 @@
+#  Property DataType
+#    Id Up to your decision
+#    Brand Up to your decision
+#    LicensePlate Up to your decision
+#    Manufacturer Up to your decision
+#    OperationCity Up to your decision
+#  Status enum (values: available, in-maintenance, out-of-service)
+#    CreatedAt Up to your decision
+#    LastUpdatedAt Up to your decision
+
+openapi: 3.0.3
+info:
+  title: Fleetmanager API
+  description: |-
+    This backend is implemented in a RESTful manner, and allows its RESTful clients manage car entities.
+  contact:
+    email: pvrogerlasso@gmail.com
+  version: 1.0.0
+servers:
+  - url: http://localhost
+tags:
+  - name: car
+    description: Create and get cars.
+    externalDocs:
+      description: Find out more
+      url: https://www.clevershuttle.de/
+paths:
+  /cars:
+    post:
+      tags:
+        - cars
+      summary: Create a new car
+      description: Create a new car
+      operationId: createCar
+      requestBody:
+        description: Body for new car
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Car'
+        required: true
+      responses:
+        '204':
+          description: Car successfully created
+          headers:
+            Location:
+              schema:
+                type: string
+                format: uri
+        '400':
+          description: Invalid car id supplied
+        '409':
+          description: The car is already present in the system
+          headers:
+            Location:
+              schema:
+                type: string
+                format: uri
+  /cars/{id}:
+    get:
+      tags:
+        - cars
+      summary: Find car by car id
+      description: Get the corresponding car for a given id
+      operationId: getCarById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The car ID
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Car'
+        '400':
+          description: Invalid car id
+        '404':
+          description: Car not found
+components:
+  schemas:
+    Car:
+      type: object
+      required:
+        - brand
+        - licensePlate
+        - status
+        - createdAt
+        - lastUpdatedAt
+      properties:
+        id:
+          type: integer
+          example: 12345
+        brand:
+          type: string
+          example: "Flexa"
+        licensePlate:
+          type: string
+          example: "L-CS8877E"
+        manufacturer:
+          type: string
+          example: "Volkswagen"
+        operationsCity:
+          type: string
+          example: "Wolfsburg"
+        status:
+          type: string
+          example: "available"
+        createdAt:
+          type: string
+          example: "2017-09-01T10:23:47.000Z"
+        lastUpdatedAt:
+          type: string
+          example: "2022-04-15T13:23:11.000Z"
