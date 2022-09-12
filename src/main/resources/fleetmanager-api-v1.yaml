@@ -25,6 +25,34 @@ tags:
       description: Find out more
       url: https://www.clevershuttle.de/
 paths:
+  /cars/{id}:
+    get:
+      tags:
+        - cars
+      summary: Find car by car id
+      description: Get the corresponding car for a given id
+      operationId: getCarById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The car ID
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Car'
+        '400':
+          description: Invalid car id
+        '404':
+          description: Car not found
   /cars:
     post:
       tags:
@@ -56,34 +84,6 @@ paths:
               schema:
                 type: string
                 format: uri
-  /cars/{id}:
-    get:
-      tags:
-        - cars
-      summary: Find car by car id
-      description: Get the corresponding car for a given id
-      operationId: getCarById
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: integer
-            minimum: 1
-          description: The car ID
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Car'
-        '400':
-          description: Invalid car id
-        '404':
-          description: Car not found
 components:
   schemas:
     Car:
