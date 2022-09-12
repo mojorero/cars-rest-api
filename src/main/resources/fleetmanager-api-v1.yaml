@@ -100,19 +100,22 @@ components:
           example: 12345
         brand:
           type: string
-          example: "Flexa"
+          example: "Mercedes"
         licensePlate:
           type: string
           example: "L-CS8877E"
         manufacturer:
           type: string
-          example: "Volkswagen"
+          example: "Daimler"
         operationsCity:
           type: string
           example: "Wolfsburg"
         status:
           type: string
-          example: "available"
+          enum:
+            - available
+            - in-maintenance
+            - out-of-service
         createdAt:
           type: string
           example: "2017-09-01T10:23:47.000Z"
