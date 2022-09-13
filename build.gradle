@@ -33,7 +33,7 @@ sourceSets {
 }
 
 task("integrationTest", type: Test) {
-    include 'com/clevershuttle/cars/api/CarsApiIntegrationTest.class'
+    include 'com/clevershuttle/cars/api/CarsApiImplIntegrationTest.class'
     testClassesDirs = sourceSets.integrationTest.output.classesDirs
     classpath = sourceSets.integrationTest.runtimeClasspath
     useJUnitPlatform()
