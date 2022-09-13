@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyInt;
 
 import com.clevershuttle.fleetmanager.apimodel.Car;
+import com.clevershuttle.fleetmanager.exceptions.ConflictException;
 import com.clevershuttle.fleetmanager.exceptions.ResourceNotFoundException;
 import com.clevershuttle.fleetmanager.persistence.repo.CarRepositoryDAO;
 import java.util.Optional;
@@ -19,12 +20,18 @@ class FleetManagerServiceTest {
 
   @Mock
   private CarRepositoryDAO carRepositoryDAO;
-//
-//  @Mock
-//  private Car car;
+
+  @Mock
+  private Car car;
 
   @InjectMocks
   private FleetManagerService fleetManagerService;
+
+  @Test
+  void givenExistingCar_whenCreateCar_thenThrowConflictException(){
+    Mockito.when(carRepositoryDAO.existsCarEntitiesById(anyInt())).thenReturn(true);
+    assertThrows(ConflictException.class, () -> fleetManagerService.createCar(car));
+  }
 
   @Test
   void givenNotExistingCar_whenFindCarById_thenThrowResourceNotFoundException(){

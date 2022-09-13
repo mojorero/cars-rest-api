@@ -2,9 +2,13 @@ package com.clevershuttle.fleetmanager.services;
 
 import com.clevershuttle.fleetmanager.apimodel.Car;
 import com.clevershuttle.fleetmanager.apimodel.Car.StatusEnum;
+import com.clevershuttle.fleetmanager.exceptions.ConflictException;
 import com.clevershuttle.fleetmanager.exceptions.ResourceNotFoundException;
 import com.clevershuttle.fleetmanager.persistence.model.CarEntity;
+import com.clevershuttle.fleetmanager.persistence.model.Status;
 import com.clevershuttle.fleetmanager.persistence.repo.CarRepositoryDAO;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +19,30 @@ public class FleetManagerService {
 
   public FleetManagerService(CarRepositoryDAO carRepositoryDAO) {
     this.carRepositoryDAO = carRepositoryDAO;
+  }
+
+  public int createCar(Car carApiData){
+    if(carRepositoryDAO.existsCarEntitiesById(carApiData.getId())){
+      throw new ConflictException("The car with id " + carApiData.getId() +
+          " could not be created because it is already present in the system.");
+    }
+
+    LocalDateTime createdAt = LocalDateTime.parse(carApiData.getCreatedAt(), DateTimeFormatter.ISO_DATE_TIME);
+    LocalDateTime lastUpdatedAt = LocalDateTime.parse(carApiData.getLastUpdatedAt(), DateTimeFormatter.ISO_DATE_TIME);
+
+    CarEntity carEntity = new CarEntity.CarEntityBuilder()
+        .brand(carApiData.getBrand())
+        .licensePlate(carApiData.getLicensePlate())
+        .manufacturer(carApiData.getManufacturer())
+        .operationsCity(carApiData.getOperationsCity())
+        .status(Status.valueOf(carApiData.getStatus().getValue()))
+//        “createdAt”: “2017-09-01T10:23:47.000Z",
+        .createdAt(createdAt)
+        //TODO Exception for datetimeconversion problems.
+        .lastUpdatedAt(lastUpdatedAt).build();
+
+    carRepositoryDAO.save(carEntity);
+    return carEntity.getId();
   }
 
   public Car findCarById(int carId) {
@@ -34,6 +62,7 @@ public class FleetManagerService {
         .manufacturer(carEntity.getManufacturer())
         .operationsCity(carEntity.getOperationsCity())
         .status(StatusEnum.fromValue(carEntity.getStatus().toString()))
-        .createdAt(carEntity.getBrand());
+        .createdAt(carEntity.getCreatedAt().toString())
+        .lastUpdatedAt(carEntity.getLastUpdatedAt().toString());
   }
 }
