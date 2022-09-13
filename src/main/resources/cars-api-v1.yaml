@@ -1,8 +1,8 @@
 openapi: 3.0.3
 info:
-  title: Fleetmanager API
+  title: Cars API
   description: |-
-    This backend is implemented in a RESTful manner, and allows its RESTful clients manage car entities.
+    This backend implements a RESTful API to manage car entities.
   contact:
     email: pvrogerlasso@gmail.com
   version: 1.0.0

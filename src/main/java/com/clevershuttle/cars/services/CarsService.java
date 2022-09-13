@@ -1,12 +1,12 @@
-package com.clevershuttle.fleetmanager.services;
+package com.clevershuttle.cars.services;
 
-import com.clevershuttle.fleetmanager.apimodel.Car;
-import com.clevershuttle.fleetmanager.apimodel.Car.StatusEnum;
-import com.clevershuttle.fleetmanager.exceptions.ConflictException;
-import com.clevershuttle.fleetmanager.exceptions.ResourceNotFoundException;
-import com.clevershuttle.fleetmanager.persistence.model.CarEntity;
-import com.clevershuttle.fleetmanager.persistence.model.Status;
-import com.clevershuttle.fleetmanager.persistence.repo.CarRepositoryDAO;
+import com.clevershuttle.cars.apimodel.Car;
+import com.clevershuttle.cars.apimodel.Car.StatusEnum;
+import com.clevershuttle.cars.exceptions.ConflictException;
+import com.clevershuttle.cars.exceptions.ResourceNotFoundException;
+import com.clevershuttle.cars.persistence.model.CarEntity;
+import com.clevershuttle.cars.persistence.model.Status;
+import com.clevershuttle.cars.persistence.repo.CarRepositoryDAO;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -14,12 +14,12 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FleetManagerService {
+public class CarsService {
 
   public static final int FRACTIONAL_DIGITS_MILLIS = 3;
   private final CarRepositoryDAO carRepositoryDAO;
 
-  public FleetManagerService(CarRepositoryDAO carRepositoryDAO) {
+  public CarsService(CarRepositoryDAO carRepositoryDAO) {
     this.carRepositoryDAO = carRepositoryDAO;
   }
 
@@ -37,11 +37,15 @@ public class FleetManagerService {
         .licensePlate(carApiData.getLicensePlate())
         .manufacturer(carApiData.getManufacturer())
         .operationsCity(carApiData.getOperationsCity())
-        .status(Status.valueOf(carApiData.getStatus().getValue().toUpperCase()))
+        .status(getStatusFrom(carApiData))
         .createdAt(createdAt)
         .lastUpdatedAt(lastUpdatedAt).build();
 
     return carRepositoryDAO.save(carEntity).getId();
+  }
+
+  private Status getStatusFrom(Car carApiData) {
+    return Status.valueOf(carApiData.getStatus().getValue().toUpperCase().replace("-", "_"));
   }
 
   public Car findCarById(int carId) {
@@ -61,8 +65,12 @@ public class FleetManagerService {
         .licensePlate(carEntity.getLicensePlate())
         .manufacturer(carEntity.getManufacturer())
         .operationsCity(carEntity.getOperationsCity())
-        .status(StatusEnum.fromValue(carEntity.getStatus().toString()))
+        .status(getStatusFromEntity(carEntity))
         .createdAt(formatter.format(carEntity.getCreatedAt()))
         .lastUpdatedAt(formatter.format(carEntity.getLastUpdatedAt()));
+  }
+
+  private StatusEnum getStatusFromEntity(CarEntity carEntity) {
+    return StatusEnum.fromValue(carEntity.getStatus().toString().replace("_", "-"));
   }
 }

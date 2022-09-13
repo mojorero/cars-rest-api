@@ -1,7 +1,7 @@
-package com.clevershuttle.fleetmanager.api;
+package com.clevershuttle.cars.api;
 
-import com.clevershuttle.fleetmanager.apimodel.Car;
-import com.clevershuttle.fleetmanager.services.FleetManagerService;
+import com.clevershuttle.cars.apimodel.Car;
+import com.clevershuttle.cars.services.CarsService;
 import java.net.URI;
 import java.util.Collections;
 import java.util.List;
@@ -10,17 +10,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @Controller
-public class FleetManagerApi implements CarsApiDelegate
+public class CarsApiImpl implements CarsApiDelegate
 {
-  private final FleetManagerService fleetManagerService;
+  private final CarsService carsService;
 
-  public FleetManagerApi(FleetManagerService fleetManagerService) {
-    this.fleetManagerService = fleetManagerService;
+  public CarsApiImpl(CarsService carsService) {
+    this.carsService = carsService;
   }
 
   @Override
   public ResponseEntity<Void> createCar(Car car){
-        int idForNewCar = fleetManagerService.createCar(car);
+        int idForNewCar = carsService.createCar(car);
 
     final URI location =
         ServletUriComponentsBuilder.fromCurrentRequest()
@@ -33,7 +33,7 @@ public class FleetManagerApi implements CarsApiDelegate
 
   @Override
   public ResponseEntity<List<Car>> getCarById(Integer id){
-    Car carData = fleetManagerService.findCarById(id);
+    Car carData = carsService.findCarById(id);
     return ResponseEntity.ok().body(Collections.singletonList(carData));
   }
 

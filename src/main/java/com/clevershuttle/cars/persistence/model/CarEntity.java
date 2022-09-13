@@ -1,4 +1,4 @@
-package com.clevershuttle.fleetmanager.persistence.model;
+package com.clevershuttle.cars.persistence.model;
 
 import java.time.Instant;
 import javax.persistence.Column;
@@ -67,8 +67,6 @@ public class CarEntity {
 
     private String operationsCity;
 
-    //TODO We can't declare ENUM literals with names which contain dash (-), as that is illegal naming in java.
-    // later we have to see how to map the enum name to Json name
     private Status status;
 
     private Instant createdAt;

@@ -1,4 +1,4 @@
-package com.clevershuttle.fleetmanager.persistence.model;
+package com.clevershuttle.cars.persistence.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

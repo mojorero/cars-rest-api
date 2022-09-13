@@ -1,14 +1,13 @@
-//Naming consistency: some things are named cars, some thing fleet
-
-# Fleetmanager API 
+# Cars API 
 
 This is my proposed solution for the challenge to manage the creation and retrieval of instances which represent the information about cars of the Clevershuttle fleet.
-Welcome to this code and have fun managing fleets!
+Welcome to this code and have fun managing cars!
 
 ## Assumptions, compromises and good-to-knows
 
 The maven plugin openapi generator has been used to generate a server stub for the API. 
 The server code implements the mentioned server stub.
+The testing of the features is done by unit and integration tests.
 
 ## Getting started
 
@@ -18,19 +17,19 @@ To build the project, it is necessary to run the following commands in the proje
 gradle build
 ```
 
-To create a docker image called fleetmanagerimage, using the description from Dockerfile:
+To create a docker image called carsimage, using the description from Dockerfile:
 ```
-docker build -f ./app/Dockerfile -t fleetmanagerimage .
-```
-
-To run create fleetmanagercontainer using fleetmanagerimage:
-```
-docker run --name fleetmanagercontainer -p 8080:8080 fleetmanagerimage:latest
+docker build -f ./app/Dockerfile -t carsimage .
 ```
 
-To stop the container fleetmanagercontainer:
+To run create carscontainer using carsimage:
 ```
-docker stop fleetmanagercontainer
+docker run --name carscontainer -p 8080:8080 carsimage:latest
+```
+
+To stop the container carscontainer:
+```
+docker stop carscontainer
 ```
 
 ## Most important technologies and tools used
@@ -44,9 +43,9 @@ docker stop fleetmanagercontainer
 
 ## About the API specification
 
-The Fleetmanager API is defined in the following OpenAPI file:
+The Cars API is defined in the following OpenAPI file:
 
-[OpenApi Specification for Fleetmanager REST API](src/main/resources/fleetmanager-api-v1.yaml)
+[OpenApi Specification for Cars REST API](src/main/resources/cars-api-v1.yaml)
 
 ## Sample car in JSON
 

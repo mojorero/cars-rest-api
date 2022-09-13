@@ -1,6 +1,6 @@
-package com.clevershuttle.fleetmanager.persistence.repo;
+package com.clevershuttle.cars.persistence.repo;
 
-import com.clevershuttle.fleetmanager.persistence.model.CarEntity;
+import com.clevershuttle.cars.persistence.model.CarEntity;
 import org.springframework.data.repository.CrudRepository;
 
 public interface CarRepositoryDAO extends CrudRepository<CarEntity, Integer> {

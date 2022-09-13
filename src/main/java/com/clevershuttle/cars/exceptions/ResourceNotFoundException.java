@@ -1,4 +1,4 @@
-package com.clevershuttle.fleetmanager.exceptions;
+package com.clevershuttle.cars.exceptions;
 
 /**
  * Exception to manage HTTP Status 404.
