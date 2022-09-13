@@ -1,13 +1,14 @@
-# Cars API 
+# Cars API
 
 This is my proposed solution for the challenge to manage the creation and retrieval of instances which represent the information about cars of the Clevershuttle fleet.
 Welcome to this code and have fun managing cars!
 
 ## Assumptions, compromises and good-to-knows
 
-The maven plugin openapi generator has been used to generate a server stub for the API. 
+The maven plugin openapi generator has been used to generate a server stub for the API.
 The server code implements the mentioned server stub.
-The testing of the features is done by unit and integration tests.
+In order to speed up the development, the testing of the features is done by unit and integration tests. For next releases, it will be necessary to do more Unit testing and less integration testing, in accordance with the established best practices (testing pyramid).
+Invested amount of time to implement this task: between 8 and 10 hours.
 
 ## Getting started
 
@@ -27,25 +28,45 @@ To run create carscontainer using carsimage:
 docker run --name carscontainer -p 8080:8080 carsimage:latest
 ```
 
+After the steps already mentioned, the system should be up und running. Now we can launch the integration tests with the following command:
+
+```
+gradle integrationTest
+```
+
 To stop the container carscontainer:
 ```
 docker stop carscontainer
 ```
 
+To delete unused resources like images and containers:
+```
+docker system prune
+```
+
 ## Most important technologies and tools used
 
-- Spring boot for the server framework.
+- Java 8
+- Spring boot for the server framework
 - Spring data JPA as specification of the database management
 - H2 as a database engine
-- OpenApi 3.0.3 to specify the implemented REST API.
+- OpenApi 3.0.3 to specify the implemented REST API
 - Docker for containerizing the application
 - Gradle for building the project
+- Rest assured to test the API
+- Lombok to generate code
 
 ## About the API specification
 
 The Cars API is defined in the following OpenAPI file:
 
 [OpenApi Specification for Cars REST API](src/main/resources/cars-api-v1.yaml)
+
+public class CarsApiImpl implements CarsApiDelegate
+
+
+This API specification has been used to generate a server stub. The interface CarsApiDelegate
+contains the API contract, which is then implemented in the backend, in this class ```com.clevershuttle.cars.api.CarsApiImpl```.
 
 ## Sample car in JSON
 
@@ -60,3 +81,22 @@ The Cars API is defined in the following OpenAPI file:
 }
 ```
 
+## Possible developments on the functional side
+
+Endpoints to delete entities, to filter/query/search, etc.
+
+### In order to be production-ready, the following matters still need to be addressed
+Better test coverage
+Use more secure dependencies for OpenApi generator
+CI/CD, including the following stages: code fetch, vulnerabilities-analysis, static code analysis, compile, run dev tests, deploy on test environment, run API tests, performance tests, deploy on prod, create RELEASE)  
+Kubernetes  
+New gradle task to independently run integrationTest with one single command and cleanup after it  
+Abstract the data management to an interface
+Metrics and Health endpoints  
+Schema validation  
+HTTPS  
+Security: check the parameters sent to the API for possible injection attacks.  
+Authentication/authorization (scopes, roles)  
+Monitoring for the different stages  
+Document new features/bugfixes released  
+Database indexing
