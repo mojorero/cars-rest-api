@@ -1,6 +1,6 @@
 package com.clevershuttle.fleetmanager.persistence.model;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -34,16 +34,18 @@ public class CarEntity {
   @Column
   private String operationsCity;
 
-  //TODO We can't declare ENUM literals with names which contain dash (-), as that is illegal naming in java.
-  // later we have to see how to map the enum name to Json name
   @Enumerated(EnumType.STRING)
   private Status status;
 
   @Column(nullable = false)
-  private LocalDateTime createdAt;
+  private Instant createdAt;
 
   @Column(nullable = false)
-  private LocalDateTime lastUpdatedAt;
+  private Instant lastUpdatedAt;
+
+  public CarEntity(){
+
+  }
 
   public CarEntity(CarEntityBuilder carEntityBuilder) {
     this.brand = carEntityBuilder.brand;
@@ -69,9 +71,9 @@ public class CarEntity {
     // later we have to see how to map the enum name to Json name
     private Status status;
 
-    private LocalDateTime createdAt;
+    private Instant createdAt;
 
-    private LocalDateTime lastUpdatedAt;
+    private Instant lastUpdatedAt;
 
     public CarEntityBuilder brand(String brand){
       this.brand = brand;
@@ -98,12 +100,12 @@ public class CarEntity {
       return this;
     }
 
-    public CarEntityBuilder createdAt(LocalDateTime createdAt) {
+    public CarEntityBuilder createdAt(Instant createdAt) {
       this.createdAt = createdAt;
       return this;
     }
 
-    public CarEntityBuilder lastUpdatedAt(LocalDateTime lastUpdatedAt) {
+    public CarEntityBuilder lastUpdatedAt(Instant lastUpdatedAt) {
       this.lastUpdatedAt = lastUpdatedAt;
       return this;
     }

@@ -1,13 +1,3 @@
-#  Property DataType
-#    Id Up to your decision
-#    Brand Up to your decision
-#    LicensePlate Up to your decision
-#    Manufacturer Up to your decision
-#    OperationCity Up to your decision
-#  Status enum (values: available, in-maintenance, out-of-service)
-#    CreatedAt Up to your decision
-#    LastUpdatedAt Up to your decision
-
 openapi: 3.0.3
 info:
   title: Fleetmanager API

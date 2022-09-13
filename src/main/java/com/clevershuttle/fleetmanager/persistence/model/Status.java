@@ -1,6 +1,14 @@
 package com.clevershuttle.fleetmanager.persistence.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public enum Status {
-  //TODO use getters, to get the names for JSson, in the desired format? in-maintenance.
-  AVAILABLE, IN_MAINTENANCE, OUT_OF_SERVICE;
+  @JsonProperty("available") AVAILABLE,
+  @JsonProperty("in-maintenance") IN_MAINTENANCE,
+  @JsonProperty("out-of-service") OUT_OF_SERVICE;
+
+  @Override
+  public String toString() {
+    return super.toString().toLowerCase();
+  }
 }

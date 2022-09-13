@@ -7,14 +7,16 @@ import com.clevershuttle.fleetmanager.exceptions.ResourceNotFoundException;
 import com.clevershuttle.fleetmanager.persistence.model.CarEntity;
 import com.clevershuttle.fleetmanager.persistence.model.Status;
 import com.clevershuttle.fleetmanager.persistence.repo.CarRepositoryDAO;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 @Service
 public class FleetManagerService {
 
+  public static final int FRACTIONAL_DIGITS_MILLIS = 3;
   private final CarRepositoryDAO carRepositoryDAO;
 
   public FleetManagerService(CarRepositoryDAO carRepositoryDAO) {
@@ -27,22 +29,19 @@ public class FleetManagerService {
           " could not be created because it is already present in the system.");
     }
 
-    LocalDateTime createdAt = LocalDateTime.parse(carApiData.getCreatedAt(), DateTimeFormatter.ISO_DATE_TIME);
-    LocalDateTime lastUpdatedAt = LocalDateTime.parse(carApiData.getLastUpdatedAt(), DateTimeFormatter.ISO_DATE_TIME);
+    Instant createdAt = Instant.parse(carApiData.getCreatedAt());
+    Instant lastUpdatedAt = Instant.parse(carApiData.getLastUpdatedAt());
 
     CarEntity carEntity = new CarEntity.CarEntityBuilder()
         .brand(carApiData.getBrand())
         .licensePlate(carApiData.getLicensePlate())
         .manufacturer(carApiData.getManufacturer())
         .operationsCity(carApiData.getOperationsCity())
-        .status(Status.valueOf(carApiData.getStatus().getValue()))
-//        “createdAt”: “2017-09-01T10:23:47.000Z",
+        .status(Status.valueOf(carApiData.getStatus().getValue().toUpperCase()))
         .createdAt(createdAt)
-        //TODO Exception for datetimeconversion problems.
         .lastUpdatedAt(lastUpdatedAt).build();
 
-    carRepositoryDAO.save(carEntity);
-    return carEntity.getId();
+    return carRepositoryDAO.save(carEntity).getId();
   }
 
   public Car findCarById(int carId) {
@@ -54,7 +53,8 @@ public class FleetManagerService {
 
     CarEntity carEntity = carEntityOptional.get();
 
-    //TODO take into account the conversion of dashes
+    DateTimeFormatter formatter = new DateTimeFormatterBuilder().appendInstant(
+        FRACTIONAL_DIGITS_MILLIS).toFormatter();
     return new Car()
         .id(carEntity.getId())
         .brand(carEntity.getBrand())
@@ -62,7 +62,7 @@ public class FleetManagerService {
         .manufacturer(carEntity.getManufacturer())
         .operationsCity(carEntity.getOperationsCity())
         .status(StatusEnum.fromValue(carEntity.getStatus().toString()))
-        .createdAt(carEntity.getCreatedAt().toString())
-        .lastUpdatedAt(carEntity.getLastUpdatedAt().toString());
+        .createdAt(formatter.format(carEntity.getCreatedAt()))
+        .lastUpdatedAt(formatter.format(carEntity.getLastUpdatedAt()));
   }
 }

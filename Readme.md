@@ -1,5 +1,4 @@
-//TODO test insertions with @ElementCollection columns!
-//TODO test this com.clevershuttle.fleetmanager.services.FleetManagerService.createCar
+//Naming consistency: some things are named cars, some thing fleet
 
 # Fleetmanager API 
 
