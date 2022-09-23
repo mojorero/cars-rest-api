@@ -1,4 +1,4 @@
-package com.clevershuttle.cars.persistence.model;
+package com.carscompany.cars.persistence.model;
 
 import java.time.Instant;
 import javax.persistence.Column;

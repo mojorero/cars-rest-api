@@ -1,12 +1,12 @@
-package com.clevershuttle.cars.api;
+package com.carscompany.cars.api;
 
 import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.with;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.clevershuttle.cars.apimodel.Car;
-import com.clevershuttle.cars.apimodel.Car.StatusEnum;
+import com.carscompany.cars.apimodel.Car;
+import com.carscompany.cars.apimodel.Car.StatusEnum;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.response.Response;

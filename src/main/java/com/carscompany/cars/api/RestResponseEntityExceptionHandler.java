@@ -1,7 +1,7 @@
-package com.clevershuttle.cars.api;
+package com.carscompany.cars.api;
 
-import com.clevershuttle.cars.exceptions.ConflictException;
-import com.clevershuttle.cars.exceptions.ResourceNotFoundException;
+import com.carscompany.cars.exceptions.ConflictException;
+import com.carscompany.cars.exceptions.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;

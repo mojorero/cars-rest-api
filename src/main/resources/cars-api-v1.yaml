@@ -13,7 +13,7 @@ tags:
     description: Create and get cars.
     externalDocs:
       description: Find out more
-      url: https://www.clevershuttle.de/
+      url: https://www.carscompany.de/
 paths:
   /cars/{id}:
     get:
@@ -74,6 +74,21 @@ paths:
               schema:
                 type: string
                 format: uri
+    get:
+      tags:
+        - cars
+      summary: Find all cars
+      description: Get all existing cars in the system
+      operationId: getAllCars
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Car'
 components:
   schemas:
     Car:

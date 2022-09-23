@@ -7,8 +7,8 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.12.RELEASE'
 }
 
-group 'com.clevershuttle.cars'
-version '1.0-SNAPSHOT'
+group 'com.carscompany.cars'
+version '1.0'
 
 repositories {
     mavenCentral()
@@ -33,7 +33,7 @@ sourceSets {
 }
 
 task("integrationTest", type: Test) {
-    include 'com/clevershuttle/cars/api/CarsApiImplIntegrationTest.class'
+    include 'com/carscompany/cars/api/CarsApiImplIntegrationTest.class'
     testClassesDirs = sourceSets.integrationTest.output.classesDirs
     classpath = sourceSets.integrationTest.runtimeClasspath
     useJUnitPlatform()
@@ -78,7 +78,7 @@ bootJar {
 sourceSets.main.java.srcDirs += "${buildDir}/generated/cars-api-v1/src/main/java"
 
 springBoot {
-    mainClass = 'com.clevershuttle.cars.CarsApplication'
+    mainClass = 'com.carscompany.cars.CarsApplication'
 }
 
 task copyOpenapiFileToBuild(type: Copy) {

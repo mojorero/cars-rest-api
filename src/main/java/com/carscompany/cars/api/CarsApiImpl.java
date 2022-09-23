@@ -1,7 +1,7 @@
-package com.clevershuttle.cars.api;
+package com.carscompany.cars.api;
 
-import com.clevershuttle.cars.apimodel.Car;
-import com.clevershuttle.cars.services.CarsService;
+import com.carscompany.cars.apimodel.Car;
+import com.carscompany.cars.services.CarsService;
 import java.net.URI;
 import java.util.Collections;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.clevershuttle.cars.persistence.model;
+package com.carscompany.cars.persistence.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

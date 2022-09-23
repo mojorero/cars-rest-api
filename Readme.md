@@ -1,6 +1,6 @@
 # Cars API
 
-This is my proposed solution for the challenge to manage the creation and retrieval of instances which represent the information about cars of the Clevershuttle fleet.
+This is my proposed solution for the challenge to manage the creation and retrieval of instances which represent the information about cars of the carscompany fleet.
 Welcome to this code and have fun managing cars!
 
 ## Assumptions, compromises and good-to-knows
@@ -66,7 +66,7 @@ public class CarsApiImpl implements CarsApiDelegate
 
 
 This API specification has been used to generate a server stub. The interface CarsApiDelegate
-contains the API contract, which is then implemented in the backend, in this class ```com.clevershuttle.cars.api.CarsApiImpl```.
+contains the API contract, which is then implemented in the backend, in this class ```CarsApiImpl```.
 
 ## Sample car in JSON
 
@@ -86,17 +86,17 @@ contains the API contract, which is then implemented in the backend, in this cla
 Endpoints to delete entities, to filter/query/search, etc.
 
 ### In order to be production-ready, the following matters still need to be addressed
-Better test coverage
-Use more secure dependencies for OpenApi generator
-CI/CD, including the following stages: code fetch, vulnerabilities-analysis, static code analysis, compile, run dev tests, deploy on test environment, run API tests, performance tests, deploy on prod, create RELEASE)  
+Better test coverage  
+Use more secure dependencies for OpenApi generator  
+CI/CD, including the following stages: code fetch, vulnerabilities-analysis, static code analysis, compile, run dev tests, deploy on test environment, run API tests, performance tests, deploy on prod, create RELEASE)    
 Kubernetes  
 New gradle task to independently run integrationTest with one single command and cleanup after it  
-Abstract the data management to an interface
+Abstract the data management to an interface  
 Metrics and Health endpoints  
 Schema validation  
 HTTPS  
-Security: check the parameters sent to the API for possible injection attacks.  
+Security: check the parameters sent to the API for possible injection attacks.    
 Authentication/authorization (scopes, roles)  
 Monitoring for the different stages  
-Document new features/bugfixes released  
-Database indexing
+Document new features/bugfixes released    
+Database indexing  

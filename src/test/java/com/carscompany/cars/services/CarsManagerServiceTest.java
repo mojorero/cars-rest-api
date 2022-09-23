@@ -1,12 +1,12 @@
-package com.clevershuttle.cars.services;
+package com.carscompany.cars.services;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyInt;
 
-import com.clevershuttle.cars.apimodel.Car;
-import com.clevershuttle.cars.exceptions.ConflictException;
-import com.clevershuttle.cars.exceptions.ResourceNotFoundException;
-import com.clevershuttle.cars.persistence.repo.CarRepositoryDAO;
+import com.carscompany.cars.apimodel.Car;
+import com.carscompany.cars.exceptions.ConflictException;
+import com.carscompany.cars.exceptions.ResourceNotFoundException;
+import com.carscompany.cars.persistence.repo.CarRepositoryDAO;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

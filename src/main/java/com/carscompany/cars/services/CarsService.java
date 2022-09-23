@@ -1,12 +1,12 @@
-package com.clevershuttle.cars.services;
+package com.carscompany.cars.services;
 
-import com.clevershuttle.cars.apimodel.Car;
-import com.clevershuttle.cars.apimodel.Car.StatusEnum;
-import com.clevershuttle.cars.exceptions.ConflictException;
-import com.clevershuttle.cars.exceptions.ResourceNotFoundException;
-import com.clevershuttle.cars.persistence.model.CarEntity;
-import com.clevershuttle.cars.persistence.model.Status;
-import com.clevershuttle.cars.persistence.repo.CarRepositoryDAO;
+import com.carscompany.cars.apimodel.Car;
+import com.carscompany.cars.apimodel.Car.StatusEnum;
+import com.carscompany.cars.exceptions.ConflictException;
+import com.carscompany.cars.exceptions.ResourceNotFoundException;
+import com.carscompany.cars.persistence.model.CarEntity;
+import com.carscompany.cars.persistence.model.Status;
+import com.carscompany.cars.persistence.repo.CarRepositoryDAO;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;

@@ -1,4 +1,4 @@
-package com.clevershuttle.cars.exceptions;
+package com.carscompany.cars.exceptions;
 
 /**
  * Exception to manage HTTP Status 409.
