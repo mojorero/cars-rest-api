@@ -62,9 +62,6 @@ The Cars API is defined in the following OpenAPI file:
 
 [OpenApi Specification for Cars REST API](src/main/resources/cars-api-v1.yaml)
 
-public class CarsApiImpl implements CarsApiDelegate
-
-
 This API specification has been used to generate a server stub. The interface CarsApiDelegate
 contains the API contract, which is then implemented in the backend, in this class ```CarsApiImpl```.
 
@@ -80,6 +77,8 @@ contains the API contract, which is then implemented in the backend, in this cla
     “lastUpdatedAt”: “2022-04-15T13:23:11.000Z"
 }
 ```
+
+### Important for IntelliJ: in order for the IDE to recognize the generated class as source code which is used to build the project, after generating the API, the IDE needs to be restarted. Eventually, this can also be done by going to the Gradle tab and clicking on Reload all projects.
 
 ## Possible developments on the functional side
 
