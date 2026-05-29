@@ -78,7 +78,35 @@ contains the API contract, which is then implemented in the backend, in this cla
 }
 ```
 
-### Important for IntelliJ: in order for the IDE to recognize the generated class as source code which is used to build the project, after generating the API, the IDE needs to be restarted. Eventually, this can also be done by going to the Gradle tab and clicking on Reload all projects.
+## Sample API calls (PowerShell)
+
+With the container running, the API is available at `http://localhost:8080`. In PowerShell, call `curl.exe` explicitly (plain `curl` is an alias for `Invoke-WebRequest` and does not accept these flags).
+
+Create a car (all of `brand`, `licensePlate`, `status`, `createdAt` and `lastUpdatedAt` are required). Returns `204 No Content` on success:
+
+```powershell
+curl.exe -X POST http://localhost:8080/cars -H "Content-Type: application/json" -d '{\"brand\":\"Toyota\",\"licensePlate\":\"L-CS8877E\",\"status\":\"available\",\"createdAt\":\"2017-09-01T10:23:47.000Z\",\"lastUpdatedAt\":\"2022-04-15T13:23:11.000Z\"}'
+```
+
+If the escaped quotes are awkward, put the JSON in a here-string first:
+
+```powershell
+$body = @'
+{"brand":"Toyota","licensePlate":"L-CS8877E","status":"available","createdAt":"2017-09-01T10:23:47.000Z","lastUpdatedAt":"2022-04-15T13:23:11.000Z"}
+'@
+
+curl.exe -X POST http://localhost:8080/cars -H "Content-Type: application/json" -d $body
+```
+
+Retrieve a car by id (add `-i` to see the status code and headers):
+
+```powershell
+curl.exe -i http://localhost:8080/cars/1
+```
+
+Valid `status` values are `available`, `in-maintenance` and `out-of-service`.
+
+### For IntelliJ users: in order for the IDE to recognize the generated class as source code which is used to build the project, after generating the API, go to the Gradle tab and clicking on Reload all projects.
 
 ## Possible developments on the functional side
 
