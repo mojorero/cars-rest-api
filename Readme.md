@@ -106,9 +106,8 @@ Endpoints to delete entities, to filter/query/search, etc.
 
 ### In order to be production-ready, the following matters still need to be addressed
 Better test coverage  
-Use more secure dependencies for OpenApi generator  
 Scalability  
-CI/CD, including the following stages: code fetch, vulnerabilities-analysis, static code analysis, compile, run dev tests, deploy on test environment, run API tests, performance tests, deploy on prod, create RELEASE)    
+CI/CD, including the following stages: code fetch, vulnerabilities-analysis, static code analysis, compile, run dev tests, deploy on test environment, run API tests, performance tests, create RELEASE, deploy on prod)    
 Kubernetes  
 New gradle task to independently run integrationTest with one single command and cleanup after it  
 Abstract the data management to an interface  
@@ -118,5 +117,4 @@ HTTPS
 Security: check the parameters sent to the API for possible injection attacks.    
 Authentication/authorization (scopes, roles)  
 Monitoring for the different stages  
-Document new features/bugfixes released    
-Database indexing  
+Document new features/bugfixes released   
