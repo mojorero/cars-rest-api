@@ -90,12 +90,13 @@ contains the API contract, which is then implemented in the backend, in this cla
 With the container running, the API is available at `http://localhost:8080`. In PowerShell, call `curl.exe` explicitly (plain `curl` is an alias for `Invoke-WebRequest` and does not accept these flags).
 
 Create a car (all of `brand`, `licensePlate`, `status`, `createdAt` and `lastUpdatedAt` are required). Returns `204 No Content` on success:
+Add `-i` to see the status code and headers:
 
 ```powershell
-curl.exe -X POST http://localhost:8080/cars -H "Content-Type: application/json" -d '{\"brand\":\"Toyota\",\"licensePlate\":\"L-CS8877E\",\"status\":\"available\",\"createdAt\":\"2017-09-01T10:23:47.000Z\",\"lastUpdatedAt\":\"2022-04-15T13:23:11.000Z\"}'
+curl.exe -i -X POST http://localhost:8080/cars -H "Content-Type: application/json" -d '{\"brand\":\"Toyota\",\"licensePlate\":\"L-CS8877E\",\"status\":\"available\",\"createdAt\":\"2017-09-01T10:23:47.000Z\",\"lastUpdatedAt\":\"2022-04-15T13:23:11.000Z\"}'
 ```
 
-Retrieve a car by id (add `-i` to see the status code and headers):
+Retrieve a car by id
 
 ```powershell
 curl.exe -i http://localhost:8080/cars/1
