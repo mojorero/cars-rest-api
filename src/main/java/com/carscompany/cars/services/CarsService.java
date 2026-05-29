@@ -2,7 +2,6 @@ package com.carscompany.cars.services;
 
 import com.carscompany.cars.apimodel.Car;
 import com.carscompany.cars.apimodel.Car.StatusEnum;
-import com.carscompany.cars.exceptions.ConflictException;
 import com.carscompany.cars.exceptions.ResourceNotFoundException;
 import com.carscompany.cars.persistence.model.CarEntity;
 import com.carscompany.cars.persistence.model.Status;
@@ -24,11 +23,6 @@ public class CarsService {
   }
 
   public int createCar(Car carApiData){
-    if(carRepositoryDAO.existsCarEntitiesById(carApiData.getId())){
-      throw new ConflictException("The car with id " + carApiData.getId() +
-          " could not be created because it is already present in the system.");
-    }
-
     Instant createdAt = Instant.parse(carApiData.getCreatedAt());
     Instant lastUpdatedAt = Instant.parse(carApiData.getLastUpdatedAt());
 

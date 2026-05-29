@@ -5,7 +5,7 @@ Welcome to this code and have fun managing cars!
 
 ## Assumptions, compromises and good-to-knows
 
-The maven plugin openapi generator has been used to generate a server stub for the API.
+api-first approach: The plugin openapi generator has been used to generate a server stub for the API. 
 The server code implements the mentioned server stub.
 In order to speed up the development, the testing of the features is done by unit and integration tests. For next releases, it will be necessary to do more Unit testing and less integration testing, in accordance with the established best practices (testing pyramid).
 Invested amount of time to implement this task: between 8 and 10 hours.
@@ -44,9 +44,11 @@ To delete unused resources like images and containers:
 docker system prune
 ```
 
+If the docker container is already 
+
 ## Most important technologies and tools used
 
-- Java 8
+- Java 21
 - Spring boot for the server framework
 - Spring data JPA as specification of the database management
 - H2 as a database engine
@@ -86,16 +88,6 @@ Create a car (all of `brand`, `licensePlate`, `status`, `createdAt` and `lastUpd
 
 ```powershell
 curl.exe -X POST http://localhost:8080/cars -H "Content-Type: application/json" -d '{\"brand\":\"Toyota\",\"licensePlate\":\"L-CS8877E\",\"status\":\"available\",\"createdAt\":\"2017-09-01T10:23:47.000Z\",\"lastUpdatedAt\":\"2022-04-15T13:23:11.000Z\"}'
-```
-
-If the escaped quotes are awkward, put the JSON in a here-string first:
-
-```powershell
-$body = @'
-{"brand":"Toyota","licensePlate":"L-CS8877E","status":"available","createdAt":"2017-09-01T10:23:47.000Z","lastUpdatedAt":"2022-04-15T13:23:11.000Z"}
-'@
-
-curl.exe -X POST http://localhost:8080/cars -H "Content-Type: application/json" -d $body
 ```
 
 Retrieve a car by id (add `-i` to see the status code and headers):
