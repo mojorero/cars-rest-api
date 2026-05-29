@@ -12,6 +12,8 @@ Invested amount of time to implement this task: between 8 and 10 hours.
 
 ## Getting started
 
+It is a requirement to have a docker engine already running, for example Docker Desktop.
+
 To build the project, it is necessary to run the following commands in the project root:
 
 ```
@@ -44,7 +46,10 @@ To delete unused resources like images and containers:
 docker system prune
 ```
 
-If the docker container is already 
+To delete the container carscontainer:
+```
+docker rm carscontainer
+```
 
 ## Most important technologies and tools used
 
