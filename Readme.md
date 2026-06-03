@@ -1,12 +1,12 @@
 # Cars API
 
-This is my proposed solution for the challenge to manage the creation and retrieval of instances which represent the information about cars of the carscompany fleet.
+This is my proposed solution for the challenge to manage the creation and retrieval of data which represent the information about cars of the carscompany fleet.
 Welcome to this code and have fun managing cars!
 
 ## Assumptions, compromises and good-to-knows
 
 api-first approach: The plugin openapi generator has been used to generate a server stub for the API. 
-The server code implements the mentioned server stub.
+The server code implements the mentioned server stub following the delegate pattern.
 In order to speed up the development, the testing of the features is done by unit and integration tests. For next releases, it will be necessary to do more Unit testing and less integration testing, in accordance with the established best practices (testing pyramid).
 Invested amount of time to implement this task: between 8 and 10 hours.
 
