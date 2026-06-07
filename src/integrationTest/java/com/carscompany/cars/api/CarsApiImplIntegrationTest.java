@@ -19,6 +19,7 @@ class CarsApiImplIntegrationTest {
 
   public static final int EXPECTED_STATUS_CODE_NOT_FOUND = 404;
   public static final String CARS_ENDPOINT = "cars/";
+  public static final String CARS_POST_ENDPOINT = "cars";
   public static final String NON_EXISTING_CAR_ID = "9999999";
   public static final int EXPECTED_STATUS_CODE_CREATED = 204;
   public static final String APPLICATION_JSON = "application/json";
@@ -44,12 +45,12 @@ class CarsApiImplIntegrationTest {
   }
 
   @Test
-  void givenNonExistingCar_whenGetrequest_thenResponseStatuscode404() {
+  void givenNonExistingCarWhenGetrequestThenResponseStatuscode404() {
     get(CARS_ENDPOINT + NON_EXISTING_CAR_ID).then().statusCode(EXPECTED_STATUS_CODE_NOT_FOUND);
   }
 
   @Test
-  void givenExistingCar_whenGetrequest_thenResponseContainsCar() {
+  void givenExistingCarWhenGetrequestThenResponseContainsCar() {
     Response responseForCarCreation = postResponse();
 
     String idForNewCar = responseForCarCreation.header(LOCATION_HEADER).split("/")[POSITION_OF_ID];
@@ -57,27 +58,27 @@ class CarsApiImplIntegrationTest {
   }
 
   @Test
-  void givenNonExistingCar_whenCreateCar_thenResponseStatuscode204() {
+  void givenNonExistingCarWhenCreateCarThenResponseStatuscode204() {
     with().body(testCar)
         .contentType(APPLICATION_JSON)
         .when()
-        .request(HTTP_METHOD_POST, CARS_ENDPOINT)
+        .request(HTTP_METHOD_POST, CARS_POST_ENDPOINT)
         .then()
         .statusCode(EXPECTED_STATUS_CODE_CREATED);
   }
 
   @Test
-  void givenNonExistingCar_whenCreateCar_thenLocationContainsLocalhostPortAndEndpoint() {
+  void givenNonExistingCarWhenCreateCarThenLocationContainsLocalhostPortAndEndpoint() {
     with().body(testCar)
         .contentType(APPLICATION_JSON)
         .when()
-        .request(HTTP_METHOD_POST, CARS_ENDPOINT)
+        .request(HTTP_METHOD_POST, CARS_POST_ENDPOINT)
         .then().assertThat().headers(LOCATION_HEADER, containsString(
             HTTP_LOCALHOST_AND_PORT + CARS_ENDPOINT));
   }
 
   @Test
-  void givenNonExistingCar_whenCreateCar_thenJsonInResponseCorrectlyPopulated()
+  void givenNonExistingCarWhenCreateCarThenJsonInResponseCorrectlyPopulated()
       throws JsonProcessingException {
 
     //Create new car and then get it.
@@ -95,7 +96,7 @@ class CarsApiImplIntegrationTest {
     return with().body(testCar)
         .contentType(APPLICATION_JSON)
         .when()
-        .request(HTTP_METHOD_POST, CARS_ENDPOINT);
+        .request(HTTP_METHOD_POST, CARS_POST_ENDPOINT);
   }
 
   private Response getResponseForCarId(String carId){

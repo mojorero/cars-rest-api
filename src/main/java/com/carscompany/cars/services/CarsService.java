@@ -1,70 +1,34 @@
 package com.carscompany.cars.services;
 
 import com.carscompany.cars.apimodel.Car;
-import com.carscompany.cars.apimodel.Car.StatusEnum;
 import com.carscompany.cars.exceptions.ResourceNotFoundException;
 import com.carscompany.cars.persistence.model.CarEntity;
-import com.carscompany.cars.persistence.model.Status;
 import com.carscompany.cars.persistence.repo.CarRepositoryDAO;
-import java.time.Instant;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.util.Optional;
+import org.jspecify.annotations.NullMarked;
 import org.springframework.stereotype.Service;
 
 @Service
+@NullMarked
 public class CarsService {
 
-  public static final int FRACTIONAL_DIGITS_MILLIS = 3;
   private final CarRepositoryDAO carRepositoryDAO;
+  private final CarMapper carMapper;
 
-  public CarsService(CarRepositoryDAO carRepositoryDAO) {
+  public CarsService(CarRepositoryDAO carRepositoryDAO, CarMapper carMapper) {
     this.carRepositoryDAO = carRepositoryDAO;
+    this.carMapper = carMapper;
   }
 
-  public int createCar(Car carApiData){
-    Instant createdAt = Instant.parse(carApiData.getCreatedAt());
-    Instant lastUpdatedAt = Instant.parse(carApiData.getLastUpdatedAt());
-
-    CarEntity carEntity = new CarEntity.CarEntityBuilder()
-        .brand(carApiData.getBrand())
-        .licensePlate(carApiData.getLicensePlate())
-        .manufacturer(carApiData.getManufacturer())
-        .operationsCity(carApiData.getOperationsCity())
-        .status(getStatusFrom(carApiData))
-        .createdAt(createdAt)
-        .lastUpdatedAt(lastUpdatedAt).build();
-
+  public int createCar(Car carApiData) {
+    CarEntity carEntity = carMapper.toEntity(carApiData);
     return carRepositoryDAO.save(carEntity).getId();
   }
 
-  private Status getStatusFrom(Car carApiData) {
-    return Status.valueOf(carApiData.getStatus().getValue().toUpperCase().replace("-", "_"));
-  }
-
   public Car findCarById(int carId) {
-    Optional<CarEntity> carEntityOptional = carRepositoryDAO.findById(carId);
+    CarEntity carEntity = carRepositoryDAO.findById(carId)
+        .orElseThrow(() -> new ResourceNotFoundException(
+            "The searched car with id: " + carId + " was not found in the system."));
 
-    if (!carEntityOptional.isPresent()) {
-      throw new ResourceNotFoundException("The searched car with id: " + carId + " was not found in the system.");
-    }
-
-    CarEntity carEntity = carEntityOptional.get();
-
-    DateTimeFormatter formatter = new DateTimeFormatterBuilder().appendInstant(
-        FRACTIONAL_DIGITS_MILLIS).toFormatter();
-    return new Car()
-        .id(carEntity.getId())
-        .brand(carEntity.getBrand())
-        .licensePlate(carEntity.getLicensePlate())
-        .manufacturer(carEntity.getManufacturer())
-        .operationsCity(carEntity.getOperationsCity())
-        .status(getStatusFromEntity(carEntity))
-        .createdAt(formatter.format(carEntity.getCreatedAt()))
-        .lastUpdatedAt(formatter.format(carEntity.getLastUpdatedAt()));
-  }
-
-  private StatusEnum getStatusFromEntity(CarEntity carEntity) {
-    return StatusEnum.fromValue(carEntity.getStatus().toString().replace("_", "-"));
+    return carMapper.toApi(carEntity);
   }
 }

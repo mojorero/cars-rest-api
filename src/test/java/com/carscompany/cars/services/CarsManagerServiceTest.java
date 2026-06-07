@@ -3,7 +3,6 @@ package com.carscompany.cars.services;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyInt;
 
-import com.carscompany.cars.apimodel.Car;
 import com.carscompany.cars.exceptions.ResourceNotFoundException;
 import com.carscompany.cars.persistence.repo.CarRepositoryDAO;
 import java.util.Optional;
@@ -19,9 +18,6 @@ class CarsManagerServiceTest {
 
   @Mock
   private CarRepositoryDAO carRepositoryDAO;
-
-  @Mock
-  private Car car;
 
   @InjectMocks
   private CarsService carsService;
